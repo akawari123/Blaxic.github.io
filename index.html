@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Mừng Sinh Nhật!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Tinos:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background: #4a4a4a; /* Nền xám đậm */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .birthday-card {
+            background: #FAF9F6; /* Màu trắng kem */
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+            padding: 3rem;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            border-top: 5px solid #b8860b; /* Vàng đồng */
+            transition: transform 0.5s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .birthday-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-family: 'Tinos', 'Times New Roman', serif;
+            font-weight: 700;
+            color: #333333; 
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            /* Hiệu ứng chữ đánh máy và phát sáng */
+            white-space: nowrap; /* Đảm bảo chữ không xuống dòng */
+            overflow: hidden; /* Che phần chữ ban đầu */
+            border-right: 3px solid #b8860b; /* Con trỏ nhấp nháy */
+            animation: 
+                typing 2s steps(20, end) forwards, /* Đánh máy */
+                blink-caret .75s step-end infinite, /* Nhấp nháy con trỏ */
+                text-glow-alt 1.5s ease-in-out infinite alternate 2s; /* Phát sáng sau khi đánh máy xong */
+        }
+        
+        /* Hiệu ứng đánh máy */
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        /* Hiệu ứng con trỏ nhấp nháy */
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #b8860b; }
+        }
+
+        /* Hiệu ứng chữ phát sáng nhẹ sau khi đánh máy */
+        @keyframes text-glow-alt {
+            from { text-shadow: 0 0 5px #ddd, 0 0 10px #b8860b; }
+            to { text-shadow: 0 0 10px #ddd, 0 0 20px #b8860b, 0 0 30px #b8860b; }
+        }
+
+
+        p {
+            font-size: 1.1rem;
+            color: #555555; 
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .gift-icon {
+            font-size: 4rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            display: inline-block;
+            animation: shake 0.8s infinite;
+            filter: grayscale(100%) brightness(50%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(1);
+            -webkit-filter: grayscale(100%) brightness(50%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(1);
+        }
+
+        .gift-icon:active {
+            transform: scale(0.9);
+        }
+
+        /* --- Popup hiển thị ảnh quà tặng --- */
+        .gift-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75); 
+            backdrop-filter: blur(5px);
+            z-index: 10;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gift-popup.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .popup-content {
+            background: #FAF9F6; 
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 90%; 
+            max-height: 90%; 
+            position: relative;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+            border: 3px solid #b8860b;
+            box-sizing: border-box;
+            overflow-y: auto; 
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .popup-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        .gift-popup.show .popup-content {
+            transform: scale(1);
+        }
+
+        .popup-content img {
+            max-width: 100%; 
+            max-height: 30vh; 
+            height: auto; 
+            object-fit: contain;
+            border-radius: 10px;
+            margin-bottom: 10px; 
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid #ddd;
+        }
+        
+        .popup-image-title {
+            font-family: 'Roboto', Arial, sans-serif;
+            font-size: 0.9rem;
+            color: #777;
+            margin-top: 5px;
+            margin-bottom: 15px; 
+        }
+
+        .popup-content h2 {
+            font-family: 'Tinos', serif;
+            color: #333333; 
+            font-size: 2rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        
+        /* CSS cho thẻ h3 trong popup */
+        .popup-content h3 {
+            font-family: 'Roboto', Arial, sans-serif;
+            color: #666; /* Màu xám đậm hơn một chút */
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .close-btn:hover {
+            color: #b8860b;
+        }
+
+        @keyframes shake {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+            75% { transform: rotate(-5deg); }
+            100% { transform: rotate(5deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="birthdayMusic" src="happy_birthday.mp3" loop autoplay></audio>
+
+    <div class="birthday-card">
+        <h1>Chúc Mừng Sinh Nhật!</h1>
+        
+        <p style="font-weight: 600; font-size: 1.25rem; color: #222; line-height: 1.6; margin-top: 2rem; margin-bottom: 2rem;">
+            Tăng tuổi thì tăng yêu luôn nha Thư Ngô ( Sứa 🪼), giảm duy nhất... deadline thôi nhé! 😸💘
+        </p>
+        <div class="gift-icon" id="openBtn">🎁</div>
+        <p><i>(Bấm vào hộp quà)</i></p>
+    </div>
+
+    
+    <div class="gift-popup" id="giftPopup">
+        <div class="popup-content">
+            <span class="close-btn" id="closeBtn">&times;</span>
+            <h2>Bất Ngờ Chưa !</h2>
+            <h3>Này Là Tổng Hợp Ảnh (^.^)</h3>
+            <img src="birthday_gift_1.jpg" alt="Quà Sinh Nhật Đặc Biệt 1">
+            <p class="popup-image-title">Ảnh 1: Cá tính </p> 
+
+            <img src="birthday_gift_2.jpg" alt="Quà Sinh Nhật Đặc Biệt 2">
+            <p class="popup-image-title">Ảnh 2: Duyên dáng</p>
+
+            <img src="birthday_gift_3.jpg" alt="Quà Sinh Nhật Đặc Biệt 3">
+            <p class="popup-image-title">Ảnh 3: Phong cách</p>
+
+            <img src="birthday_gift_4.jpg" alt="Quà Sinh Nhật Đặc Biệt 4">
+            <p class="popup-image-title">Ảnh 4: Khoảnh khắc</p>
+            
+            <img src="birthday_gift_5.jpg" alt="Quà Sinh Nhật Đặc Biệt 5">
+            <p class="popup-image-title">Ảnh 5: Nụ cười xinh</p>
+            
+            <p style="font-style: italic; color: #555; margin-top: 20px;">Hy vọng 🐯 thích món quà thứ 2 này!</p>
+        </div>
+    </div>
+
+    <script>
+        const openGiftBtn = document.getElementById('openBtn');
+        const giftPopup = document.getElementById('giftPopup');
+        const closeGiftBtn = document.getElementById('closeBtn');
+        const birthdayMusic = document.getElementById('birthdayMusic'); // Lấy phần tử audio
+
+        // Logic để phát nhạc khi có tương tác (do trình duyệt hạn chế autoplay)
+        let isMusicPlayed = false;
+        const playMusic = () => {
+            if (!isMusicPlayed) {
+                birthdayMusic.play().then(() => {
+                    isMusicPlayed = true;
+                }).catch(error => {
+                    console.log('Autoplay prevented. User interaction required to play music.', error);
+                    // Có thể hiển thị một nút "Phát nhạc" nếu muốn
+                });
+            }
+        };
+
+        // Khi bấm vào biểu tượng quà (hoặc bất kỳ tương tác nào)
+        openGiftBtn.addEventListener('click', () => {
+            giftPopup.classList.add('show');
+            playMusic(); // Thử phát nhạc khi mở popup
+        });
+
+        closeGiftBtn.addEventListener('click', () => {
+            giftPopup.classList.remove('show');
+            // Tùy chọn: Dừng nhạc hoặc tiếp tục phát khi đóng popup
+            // birthdayMusic.pause();
+        });
+
+        giftPopup.addEventListener('click', (event) => {
+            if (event.target === giftPopup) {
+                giftPopup.classList.remove('show');
+                // Tùy chọn: Dừng nhạc hoặc tiếp tục phát khi đóng popup
+                // birthdayMusic.pause();
+            }
+        });
+
+        // Thêm một listener cho body để cố gắng phát nhạc sớm nhất có thể
+        document.body.addEventListener('touchstart', playMusic, {once: true});
+        document.body.addEventListener('click', playMusic, {once: true});
+    </script>
+
+</body>
+</html>
