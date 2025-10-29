@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale-1.0">
     <title>Chúc Mừng Sinh Nhật!</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Tinos:wght@400;700&display=swap');
@@ -15,9 +15,97 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            overflow: hidden;
+            overflow: hidden; /* Quan trọng: Ẩn bong bóng khi bay ra ngoài */
             position: relative;
         }
+
+        /* --- BẮT ĐẦU CSS BONG BÓNG --- */
+        .balloon-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0; /* Đảm bảo bong bóng nằm sau tấm thiệp */
+        }
+
+        .balloon {
+            position: absolute;
+            bottom: -150px; /* Bắt đầu từ bên dưới màn hình */
+            width: 70px;
+            height: 90px;
+            background: rgba(255, 192, 203, 0.7); /* Màu hồng nhạt, hơi trong */
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: floatUp 10s infinite linear;
+        }
+
+        .balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.5); /* Dây bong bóng */
+        }
+        
+        /* Các màu bong bóng khác nhau */
+        .balloon:nth-child(2) {
+            left: 20%;
+            width: 80px;
+            height: 100px;
+            background: rgba(173, 216, 230, 0.7); /* Màu xanh nhạt */
+            animation-duration: 12s;
+            animation-delay: 2s;
+        }
+        .balloon:nth-child(3) {
+            left: 35%;
+            background: rgba(255, 255, 224, 0.7); /* Màu vàng nhạt */
+            animation-duration: 9s;
+            animation-delay: 1s;
+        }
+        .balloon:nth-child(4) {
+            left: 50%;
+            width: 60px;
+            height: 80px;
+            background: rgba(144, 238, 144, 0.7); /* Màu lục nhạt */
+            animation-duration: 11s;
+            animation-delay: 4s;
+        }
+        .balloon:nth-child(5) {
+            left: 70%;
+            background: rgba(221, 160, 221, 0.7); /* Màu tím nhạt */
+            animation-duration: 13s;
+            animation-delay: 3s;
+        }
+        .balloon:nth-child(6) {
+            left: 85%;
+            width: 75px;
+            height: 95px;
+            background: rgba(255, 182, 193, 0.7); /* Màu hồng đào */
+            animation-duration: 10s;
+            animation-delay: 5s;
+        }
+
+        /* Animation cho bong bóng bay lên */
+        @keyframes floatUp {
+            0% {
+                bottom: -150px;
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(50px); /* Bay lượn sang ngang 1 chút */
+            }
+            100% {
+                bottom: 110%; /* Bay cao hơn màn hình */
+                transform: translateX(-50px); /* Bay lượn sang ngang */
+            }
+        }
+        /* --- KẾT THÚC CSS BONG BÓNG --- */
+
 
         .birthday-card {
             background: #FAF9F6; /* Màu trắng kem */
@@ -30,7 +118,7 @@
             border-top: 5px solid #b8860b; /* Vàng đồng */
             transition: transform 0.5s ease;
             position: relative;
-            z-index: 1;
+            z-index: 1; /* Đảm bảo tấm thiệp nằm trên bong bóng */
         }
 
         .birthday-card:hover {
@@ -42,31 +130,28 @@
             font-family: 'Tinos', 'Times New Roman', serif;
             font-weight: 700;
             color: #333333; 
-            font-size: 3rem;
+            font-size: 3rem; /* Kích thước mặc định cho màn hình lớn */
             margin-bottom: 1.5rem;
-            /* Hiệu ứng chữ đánh máy và phát sáng */
-            white-space: nowrap; /* Đảm bảo chữ không xuống dòng */
-            overflow: hidden; /* Che phần chữ ban đầu */
-            border-right: 3px solid #b8860b; /* Con trỏ nhấp nháy */
+            white-space: nowrap; 
+            overflow: hidden; 
+            border-right: 3px solid #b8860b; 
             animation: 
-                typing 2s steps(20, end) forwards, /* Đánh máy */
-                blink-caret .75s step-end infinite, /* Nhấp nháy con trỏ */
-                text-glow-alt 1.5s ease-in-out infinite alternate 2s; /* Phát sáng sau khi đánh máy xong */
+                typing 2s steps(20, end) forwards, 
+                blink-caret .75s step-end infinite, 
+                text-glow-alt 1.5s ease-in-out infinite alternate 2s;
         }
         
-        /* Hiệu ứng đánh máy */
+        /* HIỆU ỨNG CHỮ (GIỮ NGUYÊN) */
         @keyframes typing {
             from { width: 0 }
             to { width: 100% }
         }
 
-        /* Hiệu ứng con trỏ nhấp nháy */
         @keyframes blink-caret {
             from, to { border-color: transparent }
             50% { border-color: #b8860b; }
         }
 
-        /* Hiệu ứng chữ phát sáng nhẹ sau khi đánh máy */
         @keyframes text-glow-alt {
             from { text-shadow: 0 0 5px #ddd, 0 0 10px #b8860b; }
             to { text-shadow: 0 0 10px #ddd, 0 0 20px #b8860b, 0 0 30px #b8860b; }
@@ -104,7 +189,7 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.75); 
             backdrop-filter: blur(5px);
-            z-index: 10;
+            z-index: 10; /* Đảm bảo popup nằm trên tất cả */
             justify-content: center;
             align-items: center;
             opacity: 0;
@@ -171,10 +256,9 @@
             margin-bottom: 10px;
         }
         
-        /* CSS cho thẻ h3 trong popup */
         .popup-content h3 {
             font-family: 'Roboto', Arial, sans-serif;
-            color: #666; /* Màu xám đậm hơn một chút */
+            color: #666; 
             font-size: 1.2rem;
             margin-bottom: 20px;
         }
@@ -201,10 +285,67 @@
             75% { transform: rotate(-5deg); }
             100% { transform: rotate(5deg); }
         }
+
+        /* --- MEDIA QUERIES: ĐIỀU CHỈNH CHO MÀN HÌNH NHỎ HƠN --- */
+        @media (max-width: 600px) { 
+            .birthday-card {
+                padding: 2rem 1.5rem; 
+            }
+
+            h1 {
+                font-size: 2.2rem; 
+                animation: 
+                    typing 1.5s steps(20, end) forwards, 
+                    blink-caret .75s step-end infinite, 
+                    text-glow-alt 1.5s ease-in-out infinite alternate 1.5s;
+            }
+
+            p {
+                font-size: 1rem; 
+            }
+            
+            /* Điều chỉnh kích thước bong bóng trên điện thoại */
+            .balloon {
+                width: 50px;
+                height: 70px;
+            }
+            .balloon:nth-child(2) {
+                width: 60px;
+                height: 80px;
+            }
+            .balloon:nth-child(4) {
+                width: 45px;
+                height: 65px;
+            }
+
+            .gift-icon {
+                font-size: 3.5rem; 
+            }
+
+            .popup-content h2 {
+                font-size: 1.7rem; 
+            }
+
+            .popup-content h3 {
+                font-size: 1rem; 
+            }
+
+            .popup-image-title {
+                font-size: 0.8rem; 
+            }
+        }
     </style>
 </head>
 <body>
-
+    
+    <div class="balloon-container">
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+    </div>
     <audio id="birthdayMusic" src="happy_birthday.mp3" loop autoplay></audio>
 
     <div class="birthday-card">
@@ -243,12 +384,12 @@
     </div>
 
     <script>
+        // --- Toàn bộ JavaScript giữ nguyên, không cần thay đổi ---
         const openGiftBtn = document.getElementById('openBtn');
         const giftPopup = document.getElementById('giftPopup');
         const closeGiftBtn = document.getElementById('closeBtn');
-        const birthdayMusic = document.getElementById('birthdayMusic'); // Lấy phần tử audio
+        const birthdayMusic = document.getElementById('birthdayMusic'); 
 
-        // Logic để phát nhạc khi có tương tác (do trình duyệt hạn chế autoplay)
         let isMusicPlayed = false;
         const playMusic = () => {
             if (!isMusicPlayed) {
@@ -256,32 +397,25 @@
                     isMusicPlayed = true;
                 }).catch(error => {
                     console.log('Autoplay prevented. User interaction required to play music.', error);
-                    // Có thể hiển thị một nút "Phát nhạc" nếu muốn
                 });
             }
         };
 
-        // Khi bấm vào biểu tượng quà (hoặc bất kỳ tương tác nào)
         openGiftBtn.addEventListener('click', () => {
             giftPopup.classList.add('show');
-            playMusic(); // Thử phát nhạc khi mở popup
+            playMusic();
         });
 
         closeGiftBtn.addEventListener('click', () => {
             giftPopup.classList.remove('show');
-            // Tùy chọn: Dừng nhạc hoặc tiếp tục phát khi đóng popup
-            // birthdayMusic.pause();
         });
 
         giftPopup.addEventListener('click', (event) => {
             if (event.target === giftPopup) {
                 giftPopup.classList.remove('show');
-                // Tùy chọn: Dừng nhạc hoặc tiếp tục phát khi đóng popup
-                // birthdayMusic.pause();
             }
         });
 
-        // Thêm một listener cho body để cố gắng phát nhạc sớm nhất có thể
         document.body.addEventListener('touchstart', playMusic, {once: true});
         document.body.addEventListener('click', playMusic, {once: true});
     </script>
